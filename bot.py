@@ -2,18 +2,24 @@ import datetime
 from discord.ext import commands, tasks
 import discord
 from dataclasses import dataclass
+from dotenv import load_dotenv
+import os
 
-BOT_TOKEN = "PUT_YOUR_TOKEN_HERE"
-CHANNEL_ID = 1025651504750800917
+load_dotenv()
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+CHANNEL_ID = 1210295265097949264
 MAX_SESSION_TIME_MINUTES = 45
+
 
 @dataclass
 class Session:
     is_active: bool = False
     start_time: int = 0
 
+
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 session = Session()
+
 
 @bot.event
 async def on_ready():
@@ -30,7 +36,15 @@ async def break_reminder():
         return
 
     channel = bot.get_channel(CHANNEL_ID)
-    await channel.send(f"**Take a break!** You've been studying for {MAX_SESSION_TIME_MINUTES} minutes.")
+    await channel.send(
+        f"**Take a break!** You've been studying for {MAX_SESSION_TIME_MINUTES} minutes."
+    )
+
+
+@bot.command()
+async def hello(ctx):
+    await ctx.send("ajaeh tuaeaeng!")
+
 
 @bot.command()
 async def start(ctx):
