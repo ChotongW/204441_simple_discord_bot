@@ -29,8 +29,10 @@ session = Session()
 
 @bot.event
 async def on_ready():
+    await bot.tree.sync()
     print("Hello! Study bot is ready!")
     channel = bot.get_channel(CHANNEL_ID)
+    
     await channel.send("Hello! Study bot is ready!")
 
 
@@ -47,11 +49,9 @@ async def break_reminder():
     )
 
 
-@bot.command()
-async def hello(ctx):
-    if ctx.author == bot.user:
-        return
-    await ctx.send("ajaeh tuaeaeng!")
+@bot.tree.command(description="Welcome User", name="ajeah")
+async def hello(interaction: discord.Interaction):
+    await interaction.response.send_message(f"ajaeh ! {interaction.user.mention}",ephemeral=True)
 
 
 @bot.command()
