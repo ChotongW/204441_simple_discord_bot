@@ -4,11 +4,17 @@ import discord
 from dataclasses import dataclass
 from dotenv import load_dotenv
 import os
+import google.generativeai as genai
 
 load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHANNEL_ID = 1210295265097949264
 MAX_SESSION_TIME_MINUTES = 45
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
+genai.configure(api_key=GEMINI_API_KEY)
+
+model = genai.GenerativeModel("gemini-pro")
 
 
 @dataclass
@@ -43,7 +49,26 @@ async def break_reminder():
 
 @bot.command()
 async def hello(ctx):
+    if ctx.author == bot.user:
+        return
     await ctx.send("ajaeh tuaeaeng!")
+
+
+@bot.command()
+async def promt(ctx, *args):
+    if ctx.author == bot.user:
+        return
+    arguments = " ".join(args)
+    response = model.generate_content(arguments, stream=True)
+
+    for chunk in response:
+        await ctx.send(chunk.text)
+
+
+@promt.error
+async def info_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        await ctx.send("I could not find that member...")
 
 
 @bot.command()

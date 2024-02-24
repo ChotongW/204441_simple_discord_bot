@@ -1,0 +1,8 @@
+version: "3.9"
+name: "discord-bot"
+services:
+  discord-bot:
+    build: .
+    image: chotongw/204441-discord-bot:latest
+    volumes:
+      - .:/app # Mount your local code directory into the container
