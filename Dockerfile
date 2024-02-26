@@ -14,4 +14,4 @@ WORKDIR /app
 EXPOSE 8080
 
 # Define function entry point
-CMD ["bash", "-c", "gunicorn --bind 0.0.0.0:8080 bot:app & python bot.py"]
+CMD ["bash", "-c", "gunicorn --bind 0.0.0.0:8080 app:app & python bot.py"]
