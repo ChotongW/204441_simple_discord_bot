@@ -88,11 +88,12 @@ async def info_error(ctx, error):
 
 # def run():
 #     bot.run(BOT_TOKEN)
+def create_app():
+    return bot
 
 
 if __name__ == "__main__":
-    # bot_thread(func=run)
-    bot.run(BOT_TOKEN)
+    create_app().run(BOT_TOKEN)
 # def run_flask():
 #     app.run()
 
