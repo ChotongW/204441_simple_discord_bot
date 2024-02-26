@@ -29,7 +29,7 @@ async def on_ready():
 
 
 @bot.tree.command(description="Welcome User", name="ajeah")
-async def hello(interaction: discord.Interaction):
+async def hello_personal(interaction: discord.Interaction):
     await interaction.response.send_message(
         f"ajaeh ! {interaction.user.mention}", ephemeral=True
     )
