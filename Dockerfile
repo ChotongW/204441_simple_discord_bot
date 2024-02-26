@@ -11,5 +11,7 @@ COPY . /app
 # Set working directory
 WORKDIR /app
 
+EXPOSE 8080
+
 # Define function entry point
 CMD ["python", "bot.py"]
