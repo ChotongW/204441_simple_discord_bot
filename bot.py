@@ -6,8 +6,8 @@ from dotenv import load_dotenv
 import os
 import google.generativeai as genai
 
-from flask import Flask
-import threading
+# from flask import Flask
+# import threading
 
 # import signal
 
@@ -22,7 +22,7 @@ genai.configure(api_key=GEMINI_API_KEY)
 
 model = genai.GenerativeModel("gemini-pro")
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
 
 @dataclass
@@ -35,9 +35,9 @@ bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 session = Session()
 
 
-@app.route("/")
-def index():
-    return {"res": "bot is running"}
+# @app.route("/")
+# def index():
+#     return {"res": "bot is running"}
 
 
 @bot.event
@@ -80,19 +80,19 @@ async def info_error(ctx, error):
         await ctx.send("I could not find that member...")
 
 
-def flask_thread(func):
-    thread = threading.Thread(target=func)
-    print("Start Separate Thread")
-    thread.start()
+# def bot_thread(func):
+#     thread = threading.Thread(target=func)
+#     print("Start Separate Thread")
+#     thread.start()
 
 
-def run():
-    bot.run(BOT_TOKEN)
+# def run():
+#     bot.run(BOT_TOKEN)
 
 
 if __name__ == "__main__":
-    flask_thread(func=run)
-    # bot.run(BOT_TOKEN)
+    # bot_thread(func=run)
+    bot.run(BOT_TOKEN)
 # def run_flask():
 #     app.run()
 
