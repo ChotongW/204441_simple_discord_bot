@@ -6,7 +6,8 @@ from dotenv import load_dotenv
 import os
 import google.generativeai as genai
 
-# from flask import Flask
+from flask import Flask
+
 # import threading
 
 # import signal
@@ -22,22 +23,14 @@ genai.configure(api_key=GEMINI_API_KEY)
 
 model = genai.GenerativeModel("gemini-pro")
 
-# app = Flask(__name__)
-
-
-@dataclass
-class Session:
-    is_active: bool = False
-    start_time: int = 0
-
+app = Flask(__name__)
 
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
-session = Session()
 
 
-# @app.route("/")
-# def index():
-#     return {"res": "bot is running"}
+@app.route("/")
+def index():
+    return {"res": "bot is running"}
 
 
 @bot.event
@@ -88,12 +81,8 @@ async def info_error(ctx, error):
 
 # def run():
 #     bot.run(BOT_TOKEN)
-def create_app():
-    return bot
-
-
 if __name__ == "__main__":
-    create_app().run(BOT_TOKEN)
+    bot.run(BOT_TOKEN)
 # def run_flask():
 #     app.run()
 
