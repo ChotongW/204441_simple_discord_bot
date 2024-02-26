@@ -82,17 +82,17 @@ async def info_error(ctx, error):
 
 def flask_thread(func):
     thread = threading.Thread(target=func)
-    print("Start Separate Thread From Bot")
+    print("Start Separate Thread")
     thread.start()
 
 
 def run():
-    app.run(port=PORT, use_reloader=False)
+    bot.run(BOT_TOKEN)
 
 
 if __name__ == "__main__":
     flask_thread(func=run)
-    bot.run(BOT_TOKEN)
+    # bot.run(BOT_TOKEN)
 # def run_flask():
 #     app.run()
 
