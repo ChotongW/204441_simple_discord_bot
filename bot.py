@@ -6,13 +6,6 @@ from dotenv import load_dotenv
 import os
 import google.generativeai as genai
 
-from flask import Flask
-
-# import threading
-
-# import signal
-
-
 load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHANNEL_ID = 1210295265097949264
@@ -23,14 +16,7 @@ genai.configure(api_key=GEMINI_API_KEY)
 
 model = genai.GenerativeModel("gemini-pro")
 
-app = Flask(__name__)
-
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
-
-
-@app.route("/")
-def index():
-    return {"res": "bot is running"}
 
 
 @bot.event
@@ -73,30 +59,5 @@ async def info_error(ctx, error):
         await ctx.send("I could not find that member...")
 
 
-# def bot_thread(func):
-#     thread = threading.Thread(target=func)
-#     print("Start Separate Thread")
-#     thread.start()
-
-
-# def run():
-#     bot.run(BOT_TOKEN)
 if __name__ == "__main__":
     bot.run(BOT_TOKEN)
-# def run_flask():
-#     app.run()
-
-
-# def stop_services(signum, frame):
-#     print("Stopping services...")
-#     break_reminder.stop()
-#     bot.close()
-#     print("Services stopped.")
-#     os._exit(0)
-
-
-# if __name__ == "__main__":
-#     flask_thread = threading.Thread(target=run_flask)
-#     flask_thread.start()
-#     signal.signal(signal.SIGINT, stop_services)  # Register signal handler for Ctrl+C
-#     bot.run(BOT_TOKEN)
