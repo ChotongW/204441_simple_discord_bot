@@ -3,3 +3,5 @@ discord-interactions==0.4.0
 discord.py==2.3.2
 python-dotenv==0.21.0
 google-generativeai==0.3.2
+disnake==2.9.1
+jikanpy-v4==1.0.2

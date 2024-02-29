@@ -1,10 +1,13 @@
 import datetime
-from discord.ext import commands, tasks
+from discord.ext import commands, tasks 
 import discord
 from dataclasses import dataclass
 from dotenv import load_dotenv
 import os
 import google.generativeai as genai
+
+from function import  upcoming
+from Pagination import PaginationView
 
 load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -15,7 +18,6 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 genai.configure(api_key=GEMINI_API_KEY)
 
 model = genai.GenerativeModel("gemini-pro")
-
 
 @dataclass
 class Session:
@@ -35,6 +37,10 @@ async def on_ready():
     
     await channel.send("Hello! Study bot is ready!")
 
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.errors.CheckFailure):
+        await ctx.send('I do not have this command.')
 
 @tasks.loop(minutes=MAX_SESSION_TIME_MINUTES, count=2)
 async def break_reminder():
@@ -53,6 +59,14 @@ async def break_reminder():
 async def hello(interaction: discord.Interaction):
     await interaction.response.send_message(f"ajaeh ! {interaction.user.mention}",ephemeral=True)
 
+## show coming up anime
+@bot.command(name="comingup")
+async def paginate(ctx):
+        data = upcoming()
+
+        pagination_view = PaginationView()
+        pagination_view.data = data
+        await pagination_view.send(ctx)
 
 @bot.command()
 async def promt(ctx, *args):
@@ -63,6 +77,8 @@ async def promt(ctx, *args):
 
     for chunk in response:
         await ctx.send(chunk.text)
+
+
 
 
 @promt.error
