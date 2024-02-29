@@ -1,7 +1,12 @@
 discord==2.3.2
 discord-interactions==0.4.0
-discord.py==2.3.2
 python-dotenv==0.21.0
 google-generativeai==0.3.2
+<<<<<<< HEAD
 disnake==2.9.1
 jikanpy-v4==1.0.2
+=======
+Flask==2.2.2
+Werkzeug==2.2.2
+gunicorn==20.1.0
+>>>>>>> eaeacc80ca10ad411bc95cd14531eca8641dabe0

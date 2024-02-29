@@ -3,6 +3,8 @@ name: "discord-bot"
 services:
   discord-bot:
     build: .
+    ports:
+      - "8080:8080"
     image: chotongw/204441-discord-bot:latest
     volumes:
       - .:/app # Mount your local code directory into the container
