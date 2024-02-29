@@ -19,15 +19,12 @@ genai.configure(api_key=GEMINI_API_KEY)
 
 model = genai.GenerativeModel("gemini-pro")
 
-<<<<<<< HEAD
 @dataclass
 class Session:
     is_active: bool = False
     start_time: int = 0
 
 
-=======
->>>>>>> eaeacc80ca10ad411bc95cd14531eca8641dabe0
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 
 
