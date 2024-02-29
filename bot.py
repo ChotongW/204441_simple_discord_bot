@@ -5,6 +5,9 @@ from dataclasses import dataclass
 from dotenv import load_dotenv
 import os
 import google.generativeai as genai
+import yfinance as yf
+import matplotlib.pyplot as plt
+import io
 
 from function import  upcoming
 from Pagination import PaginationView
@@ -73,8 +76,25 @@ async def promt(ctx, *args):
     for chunk in response:
         await ctx.send(chunk.text)
 
+@bot.command()
+async def stock(ctx, symbol):
+    try:
+        stock_data = yf.download(symbol, period='1mo', interval='1d')
 
+        plt.figure(figsize=(10, 5))
+        plt.plot(stock_data['Close'], label='Close Price')
+        plt.xlabel('Time (UTC-4/EDT)')
+        plt.ylabel('Price (USD)')
+        plt.title(f'{symbol} Stock Price (1 month)')
+        plt.legend()
+        
+        buffer = io.BytesIO()
+        plt.savefig(buffer, format='png')
+        buffer.seek(0)
 
+        await ctx.send(file=discord.File(buffer, filename='plot.png'))
+    except Exception as e:
+        await ctx.send(f'Error fetching or plotting data: {e}')
 
 @promt.error
 async def info_error(ctx, error):
