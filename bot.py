@@ -188,7 +188,7 @@ async def status(ctx, num: int):
         await ctx.send(image_url)
 
 
-@Bot.command()
+@bot.command()
 async def stock(ctx, symbol):
     try:
         stock_data = yf.download(symbol, period="1mo", interval="1d")
